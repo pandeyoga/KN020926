@@ -113,8 +113,9 @@ async def update_approval_rule(rule_id: str, payload: ApprovalRuleUpdate, reques
     existing = await db.approval_rules.find_one({"id": rule_id}, {"_id": 0})
     if not existing:
         raise HTTPException(status_code=404, detail="Approval rule tidak ditemukan")
+    # Nilai efektif pasca-PATCH: field yang dikirim menang, sisanya dari dokumen lama.
     merged_min = updates.get("min_amount", existing.get("min_amount", 0))
-    merged_max = updates.get("max_amount", existing.get("max_amount")) if ("max_amount" in updates or existing.get("max_amount") is not None) else None
+    merged_max = updates["max_amount"] if "max_amount" in updates else existing.get("max_amount")
     _validate(updates.get("doc_type"), updates.get("required_role"), merged_min, merged_max)
     if "entity_id" in updates:
         _assert_rule_entity_allowed(updates["entity_id"], await entity_ctx(request))

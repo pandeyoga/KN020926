@@ -18,7 +18,7 @@ All P0/P1 frontend bugs below were **already resolved** by a prior session and a
 | #4 Special Order (OD) menu not accessible | P1 | ✅ FIXED — now a tab under the `sales-orders` hub; clicking renders full Special Order page (stats + table + "Buat Special Order"). |
 | #5 Returns status tab text formatting | P2 | ✅ FIXED — `.tab-pills`(flex+gap) renders spaced pills "Semua \| Draft \| Menunggu \| Approved \| Ditolak". |
 | #6 Inconsistent page titles | P2 | ✅ Addressed — consistent `PAGE_META` kicker/title (e.g. "BERANDA › PENJUALAN"). |
-| #7 Tab badge position | P3 | (cosmetic — not in P0/P1 scope) |
+| #7 Tab badge position | P3 | ✅ FIXED (2026-06) — badge "Menunggu" di `PriceApprovals.jsx` kini `inline-flex items-center` di dalam pill (h-15px, min-w-15px, leading-none, testid `price-approvals-pending-badge`). Verified via screenshot before/after. |
 
 > The original report below is retained for history (it reflected the state BEFORE the fixes were applied).
 
@@ -173,13 +173,14 @@ Consistent heading structure across all pages from PAGE_META in navigationConfig
 
 ## 🟢 LOW PRIORITY (P3 - Can Wait)
 
-### BUG #7: Tab Badge Count Position
+### BUG #7: Tab Badge Count Position — ✅ FIXED 2026-06
 **Severity:** LOW (Visual)  
 **Description:**  
 On Approval Harga page, "Menunggu" tab shows badge "1" but positioning might be off.
 
-**Fix Priority:** P3 (LOW)  
-**Estimated Fix Time:** 10 minutes
+**Fix (2026-06):** tombol filter jadi `inline-flex items-center gap-1`; badge jadi
+lingkaran rata tengah (`inline-flex h-[15px] min-w-[15px] items-center justify-center
+leading-none`), testid `price-approvals-pending-badge`. Screenshot before/after diambil.
 
 ---
 

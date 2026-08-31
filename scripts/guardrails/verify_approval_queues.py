@@ -159,6 +159,16 @@ DOOR_EXEMPT: Dict[str, str] = {
     "purchase_returns.py::/api/purchase-returns/{return_id}/supplier-reject":
         "Pencatatan keputusan SUPPLIER (pihak luar) atas retur yang sudah disetujui "
         "internal — bukan antrean keputusan orang dalam.",
+    "rfid.py::/api/rfid/print-jobs/{job_id}/verify/start":
+        "Membuka SESI SCAN verifikasi fisik label RFID yang baru dicetak (izin "
+        "wms.scan, alur operasional gudang) — mesin mencocokkan EPC, bukan orang "
+        "memutuskan dokumen; antrean kerjanya layar RFID/Operasi Gudang.",
+    "rfid.py::/api/rfid/verify-sessions/{session_id}/scan":
+        "Setoran hasil BACAAN READER (daftar EPC) ke sesi verifikasi — murni "
+        "pencatatan mesin, tidak ada keputusan manusia yang menunggu.",
+    "rfid.py::/api/rfid/verify-sessions/{session_id}/complete":
+        "Menutup sesi scan; hasil (cocok/hilang/lebih) dihitung MESIN dari selisih "
+        "EPC, bukan persetujuan orang — tindak lanjut selisihnya lewat alur WMS biasa.",
 }
 
 # ─── Sapuan DATA: kosakata "menunggu keputusan" ───────────────────────────────

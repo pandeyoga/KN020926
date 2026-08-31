@@ -258,13 +258,18 @@ export default function PriceApprovals({ currentUser = {} }) {
               key={f.id}
               data-testid={`price-approvals-filter-${f.id}`}
               onClick={() => setFilter(f.id)}
-              className={`rounded-full px-3 py-1 text-[11px] font-semibold transition ${
+              className={`inline-flex items-center gap-1 rounded-full px-3 py-1 text-[11px] font-semibold transition ${
                 filter === f.id ? "bg-[#1C1C1E] text-white" : "bg-[#F2F2F7] text-[#3C3C43] hover:bg-[#E5E5EA]"
               }`}
             >
               {f.label}
               {f.id === "pending" && counts.pending > 0 && (
-                <span className="ml-1 rounded-full bg-[#FF9500] px-1.5 text-[9px] text-white">{counts.pending}</span>
+                <span
+                  data-testid="price-approvals-pending-badge"
+                  className="inline-flex h-[15px] min-w-[15px] items-center justify-center rounded-full bg-[#FF9500] px-1 text-[9px] font-bold leading-none text-white"
+                >
+                  {counts.pending}
+                </span>
               )}
             </button>
           ))}

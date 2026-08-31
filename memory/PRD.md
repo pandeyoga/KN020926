@@ -52,7 +52,11 @@ tersisa action items minor).
   `audit_md_erp_readiness`: SELESAI=96 · BELUM=0 · DRIFT=0. Rencana MD-ERP habis.
 
 ## Backlog / Prioritas
-- P2: refactor readability `merged_max` di PATCH approval_rules (catatan review, non-blocking).
+- ~~P2: refactor readability `merged_max` di PATCH approval_rules~~ — SELESAI 2026-06
+  (ternary bersarang → dua baris jelas; POC approval coverage tetap 41/41, PATCH menolak
+  min>max dengan benar). Bug #7 badge tab "Menunggu" juga SELESAI (screenshot before/after).
+  Bonus: 3 pintu RFID verify (scan fisik label, bukan keputusan manusia) didaftarkan ke
+  `DOOR_EXEMPT` penjaga INV-APPR-01 — penjaga kembali HIJAU 233 cek.
 - Rencana fase MD-ERP selesai semua; backlog berikutnya dari BUG_BACKLOG.md / permintaan pemilik.
 
 ## Catatan Verifikasi Sesi Ini
