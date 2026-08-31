@@ -19,14 +19,22 @@
 > keduanya 35/35 saat diulang BERURUTAN). Ini kelas jebakan yang sama dengan catatan
 > sesi ke-5: "jangan jalankan verify/gate bersamaan dengan POC".
 >
-> **BERIKUTNYA (urutan disepakati pemilik):** (1) P2 refactor readability
-> `merged_max` di PATCH approval_rules — non-blocking, POC approval harus tetap
-> hijau; (2) Bug #7 posisi badge tab "Menunggu" di Approval Harga (P3 kosmetik);
-> (3) `MASTER_ROADMAP.md` **EPIC 0** (IA hygiene + scaffold F4 settings-service &
-> F5 role-home registry), lalu **lanjut otomatis ke EPIC 1** (keputusan pemilik
-> 2026-06: pencabutan akses sales ke HPP/vendor bill DI BALIK FEATURE FLAG,
-> reversible — bukan hard-cut). Pekerjaan kini datang dari backlog
-> (`BUG_BACKLOG.md` / `MASTER_ROADMAP.md`), BUKAN lagi dari rencana fase MD-ERP.
+> **SUDAH DIKERJAKAN DI SESI INI JUGA (lanjutan):** (1) P2 `merged_max` PATCH
+> approval_rules — refactor readable, perilaku identik, POC approval **41/41**;
+> (2) Bug #7 badge tab "Menunggu" Persetujuan Harga — rata tengah (center_delta
+> 0.00px, testid `price-approvals-pending-badge`), screenshot before/after;
+> (3) 3 pintu RFID verify → `DOOR_EXEMPT` penjaga INV-APPR-01 (HIJAU 233 cek);
+> (4) `MASTER_ROADMAP.md` **EPIC 0 & EPIC 1 TERNYATA SUDAH DIBANGUN** sesi lampau
+> (lihat plan.md §F-3: EPIC 0–6 ada di kode) — sesi ini MEMVERIFIKASI end-to-end:
+> flag `ui.show_coming_soon` dibalik via PUT /api/config/values → grup "Segera
+> Hadir" hilang dari sidebar (lalu dikembalikan); sales mendarat di "Performa
+> Saya" tanpa menu HPP/vendor-bill/PO; admin di Control Tower; regresi
+> **iteration_274 backend 100% · frontend 100% · nol residu**. Header
+> MASTER_ROADMAP yang berbunyi "belum dieksekusi" sudah dibetulkan.
+>
+> **BERIKUTNYA:** sisa roadmap hanya **EPIC 7 (multi-currency/FX)** — sengaja
+> ditunda tanpa bukti kebutuhan (supplier semua domestik). Pekerjaan berikutnya
+> datang dari arahan pemilik / backlog baru, BUKAN lagi dari rencana fase MD-ERP.
 
 > **AUDIT PASCA-IMPLEMENTASI (2026-06, sesi lanjutan ke-6 · BELUM DIEKSEKUSI)**
 > Pekerjaan sesi ke-5 diperiksa ulang mencari cacat; hasilnya **10 temuan** ditulis di

@@ -51,6 +51,15 @@ tersisa action items minor).
   baru `backend/test_core_makloon_lini_poc.py` (M1–M6, 35/35 PASS, nol residu).
   `audit_md_erp_readiness`: SELESAI=96 · BELUM=0 · DRIFT=0. Rencana MD-ERP habis.
 
+- 2026-06 (sesi lanjutan ke-7 — penutupan & backlog): restore diverifikasi (audit 96/0/0,
+  POC N 35/35, POC M 35/35, demo persis, residu 0); commit WIP di-amend jadi pesan penutup
+  N+M. Backlog kecil selesai: P2 merged_max (POC approval 41/41), Bug #7 badge tab
+  (center_delta 0.00px), 3 pintu RFID verify → DOOR_EXEMPT (penjaga 233 cek HIJAU).
+  MASTER_ROADMAP EPIC 0 & 1 diverifikasi TERNYATA SUDAH DIBANGUN sesi lampau — flag
+  ui.show_coming_soon terbukti mengendalikan sidebar (dibalik via API lalu dikembalikan),
+  role-home per peran hidup, akses sales bersih dari HPP/vendor bill. Regresi
+  iteration_274: backend 100% · frontend 100% · nol residu. Header MASTER_ROADMAP dibetulkan.
+
 ## Backlog / Prioritas
 - ~~P2: refactor readability `merged_max` di PATCH approval_rules~~ — SELESAI 2026-06
   (ternary bersarang → dua baris jelas; POC approval coverage tetap 41/41, PATCH menolak

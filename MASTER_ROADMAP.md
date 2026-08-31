@@ -1,7 +1,14 @@
 # MASTER ROADMAP — KN3 ERP/WMS (Future-Proof Program Plan)
 
 > Konsolidasi 3 audit (Insentif, Role/UX, POS+IA) + fondasi arsitektural + backlog lama.
-> Semua temuan grounded dari kode & data. Bahasa: Indonesia. Status: **RENCANA — belum dieksekusi.**
+> Semua temuan grounded dari kode & data. Bahasa: Indonesia.
+> Status: **DIEKSEKUSI — EPIC 0–6 terbukti sudah dibangun** (bukti: plan.md §F-3 —
+> costing/WAC, incentive v2 `per_sku`, POS, doc-trace, budget+komitmen ada di kode;
+> EPIC 0 & 1 diverifikasi ulang end-to-end 2026-06: flag `ui.show_coming_soon`
+> mengendalikan grup "Segera Hadir", role-home per peran hidup, akses sales bersih
+> dari HPP/vendor bill/PO — regresi `iteration_274` 100%). Sisa: **EPIC 7
+> multi-currency/FX** — sengaja TIDAK dibangun tanpa bukti kebutuhan (semua supplier
+> domestik). Header lama "RENCANA — belum dieksekusi" menyesatkan agen berikutnya.
 > Dokumen turunan: `INCENTIVE_REDESIGN_ANALYSIS.md`, `ROLE_UX_GAP_AUDIT.md`, `POS_ECOMMERCE_AND_IA_AUDIT.md`.
 
 ---

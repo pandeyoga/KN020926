@@ -2520,3 +2520,35 @@ fakta hijau). POC M **35/35** · POC N **35/35** · data demo kembali persis
 Rencana eksekusi MD-ERP (§1–§M) **habis**. Pekerjaan berikutnya datang dari backlog
 pemilik/agen (mis. `BUG_BACKLOG.md`, `MASTER_ROADMAP.md`), bukan dari rencana fase.
 
+
+## §STATUS PENUTUPAN-SESI+BACKLOG (2026-06 · sesi lanjutan ke-7) — SELESAI
+
+### 1. Verifikasi pasca-restore (titik berhenti sesi ke-6)
+Kedua edit pembukuan N+M ADA di working tree; seluruh bukti penutup diulang & cocok
+persis: `audit_md_erp_readiness` **96/0/0** · POC N **35/35** · POC M **35/35** ·
+demo (makloon 5 · inspections 3 · vendor_bills 12 · products 20 · rolls 66) ·
+residu POC 0 · `recipient_role="all"` 0. Commit "WIP" di-amend jadi pesan penutup.
+PELAJARAN: POC N & M TIDAK boleh paralel (POC N mencabut matriks izin sementara →
+kegagalan transien N 34/35 + M crash; berurutan keduanya 35/35).
+
+### 2. Backlog kecil
+* **P2 `merged_max`** (PATCH approval_rules): ternary bersarang → dua baris jelas;
+  perilaku identik — POC approval coverage **41/41**, PATCH min>max tetap 400.
+* **Bug #7** badge tab "Menunggu" (Persetujuan Harga): pill `inline-flex items-center`,
+  badge bulat `h-15px leading-none` (testid `price-approvals-pending-badge`) —
+  terukur center_delta vertikal **0.00px** (iteration_274). Screenshot before/after.
+* **Penjaga INV-APPR-01**: 3 pintu RFID verify (verify/start · scan · complete) =
+  verifikasi fisik label oleh MESIN → `DOOR_EXEMPT` ber-alasan; penjaga HIJAU 233 cek.
+
+### 3. MASTER_ROADMAP EPIC 0 & 1 — TERNYATA SUDAH DIBANGUN, sesi ini MEMVERIFIKASI
+Sesuai §F-3 (EPIC 0–6 sudah ada di kode), diverifikasi ulang end-to-end:
+flag `ui.show_coming_soon` DIBALIK via PUT /api/config/values → grup "Segera Hadir"
+hilang dari sidebar admin (lalu dikembalikan); `:where(.field){width:100%}` +
+`.filter-bar` kompak ada; sales mendarat di "Performa Saya" TANPA menu
+HPP/vendor-bill/PO; admin di Control Tower; manajer melihat KPI tahanan QC.
+Regresi **iteration_274: backend 100% · frontend 100% · nol residu**.
+Header `MASTER_ROADMAP.md` yang menyesatkan ("belum dieksekusi") dibetulkan.
+
+### 4. Berikutnya
+Sisa roadmap hanya **EPIC 7 (multi-currency/FX)** — sengaja ditunda tanpa bukti
+kebutuhan. Pekerjaan berikutnya menunggu arahan pemilik (backlog baru / review).
