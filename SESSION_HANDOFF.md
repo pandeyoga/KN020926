@@ -1,5 +1,33 @@
 # SESSION HANDOFF — Kain Nusantara (WMS/ERP)
 
+> Diperbarui: **2026-06 (sesi lanjutan ke-7)** — **RENCANA MD-ERP §1–§M HABIS, N+M
+> DITUTUP & DIVERIFIKASI PASCA-RESTORE**. Sesi sebelumnya terputus SESUDAH menulis
+> pembukuan N+M ke `plan.md` (§STATUS N+M, baris 2482+) & `memory/PRD.md` tetapi
+> SEBELUM verifikasi akhir & commit. Sesi ini me-restore repo dari commit
+> `WIP: simpan progress saya`, memastikan kedua edit ada di working tree, lalu
+> menjalankan ulang SEMUA bukti penutup — semuanya cocok persis dengan pembukuan:
+> `audit_md_erp_readiness` **SELESAI=96 · BELUM=0 · DRIFT=0** · POC N
+> (`test_core_notifikasi_alamat_poc.py`) **35/35** · POC M
+> (`test_core_makloon_lini_poc.py`) **35/35** · data demo persis (makloon_orders 5 ·
+> inspections 3 · vendor_bills 12 · products 20 · rolls 66) · residu POC **0** ·
+> `recipient_role="all"` **0 dokumen**. Commit WIP diganti pesan penutup yang benar.
+>
+> **PELAJARAN (jangan diulang):** POC N dan POC M **TIDAK BOLEH dijalankan
+> bersamaan** — POC N sementara mencabut matriks izin (`permission_settings/default`)
+> lalu memulihkannya; POC lain yang berjalan paralel akan melihat keadaan tercabut itu
+> dan gagal transien (terjadi di sesi ini: N 34/35 + M crash `KeyError: 'id'`;
+> keduanya 35/35 saat diulang BERURUTAN). Ini kelas jebakan yang sama dengan catatan
+> sesi ke-5: "jangan jalankan verify/gate bersamaan dengan POC".
+>
+> **BERIKUTNYA (urutan disepakati pemilik):** (1) P2 refactor readability
+> `merged_max` di PATCH approval_rules — non-blocking, POC approval harus tetap
+> hijau; (2) Bug #7 posisi badge tab "Menunggu" di Approval Harga (P3 kosmetik);
+> (3) `MASTER_ROADMAP.md` **EPIC 0** (IA hygiene + scaffold F4 settings-service &
+> F5 role-home registry), lalu **lanjut otomatis ke EPIC 1** (keputusan pemilik
+> 2026-06: pencabutan akses sales ke HPP/vendor bill DI BALIK FEATURE FLAG,
+> reversible — bukan hard-cut). Pekerjaan kini datang dari backlog
+> (`BUG_BACKLOG.md` / `MASTER_ROADMAP.md`), BUKAN lagi dari rencana fase MD-ERP.
+
 > **AUDIT PASCA-IMPLEMENTASI (2026-06, sesi lanjutan ke-6 · BELUM DIEKSEKUSI)**
 > Pekerjaan sesi ke-5 diperiksa ulang mencari cacat; hasilnya **10 temuan** ditulis di
 > **`memory/HANDOFF_AUDIT_SESI_2026_06C.md`** — 1 TINGGI · 4 SEDANG · 3 RENDAH · 2 catatan.

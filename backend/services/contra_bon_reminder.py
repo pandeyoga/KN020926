@@ -195,13 +195,19 @@ async def job_contra_bon_reminder() -> Dict[str, Any]:
                 f"Belum ditagih supplier: {gr['po_count']} PO senilai {_rp(gr['total_value'])}"
                 + (f" ({gr['overdue_count']} sudah tertunggak)" if gr["overdue_count"] else "")
                 + ".")
-        n = await notif.create_notification(
+        # FASE N (sisa DRIFT terakhir, 2026-06) — dulu `recipient_role="all"`: SEMUA
+        # peran (termasuk sales & gudang) melihat jadwal tukar faktur yang bukan
+        # urusannya. Pemiliknya jelas — yang menyiapkan kontrabon (finance) dan yang
+        # menandatanganinya (manajer) — jadi alamatnya fan-out per orang lewat
+        # `create_addressed` (dedupe per orang, ref diberi akhiran #user_id).
+        made = await notif.create_addressed(
+            roles=("finance", "manager"),
             notif_type="contra_bon_cycle",
             title=f"Jadwal tukar faktur: {sup.get('name', '')}",
             body=body, severity="warning" if gr["overdue_count"] else "info",
-            link="contra-bons", entity_id=ent or None, recipient_role="all",
+            link="contra-bons", entity_id=ent or None,
             ref=f"cbcycle:{sup['id']}:{nxt.isoformat()}", dedupe_scope="day")
-        created += 1 if n else 0
+        created += len(made)
 
     # (2) Eskalasi kontrabon yang menunggu terlalu lama.
     async for cb in db[cbs.COLL].find({"status": {"$in": list(cbs.PENDING_STATUSES)}}, {"_id": 0}):

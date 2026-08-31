@@ -45,9 +45,15 @@ tersisa action items minor).
   HOME_BOARD_KEYS + ("inspection_hold",)` di home_service.manager_home — definisi antrean
   tetap satu di approval_backlog_service (INV-HOME-01), Control Tower admin tidak diubah.
 
+- 2026-06 (FASE N + M ditutup): DRIFT terakhir FASE N dibereskan — notifikasi
+  `contra_bon_cycle` kini beralamat `create_addressed(roles=("finance","manager"))`
+  (contra_bon_reminder.py), 0 dokumen `recipient_role="all"`. FASE M dibukukan dengan POC
+  baru `backend/test_core_makloon_lini_poc.py` (M1–M6, 35/35 PASS, nol residu).
+  `audit_md_erp_readiness`: SELESAI=96 · BELUM=0 · DRIFT=0. Rencana MD-ERP habis.
+
 ## Backlog / Prioritas
 - P2: refactor readability `merged_max` di PATCH approval_rules (catatan review, non-blocking).
-- Roadmap repo (MASTER_ROADMAP.md): FASE I (Inspeksi & QC sebagai dokumen) → N (Notifikasi) → M (Makloon).
+- Rencana fase MD-ERP selesai semua; backlog berikutnya dari BUG_BACKLOG.md / permintaan pemilik.
 
 ## Catatan Verifikasi Sesi Ini
 - curl: POST rule entity ent_ksc → evaluate-approval mengembalikan rule_id tsb (mesin membaca);

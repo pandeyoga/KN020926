@@ -2480,3 +2480,43 @@ notifikasi PO custom (`special_orders`) · **D5** 11 notifikasi ber-`recipient_r
 **FASE N — NOTIFIKASI YANG BERALAMAT** (§N rencana): pemberitahuan berhenti dikirim ke
 `"all"` dan mulai beralamat ke **peran + izin + badan usaha** yang benar; D5 dibereskan.
 Sesudahnya **M (Makloon)**.
+
+---
+## §STATUS N + M — SELESAI (2026-06, sesi lanjutan): **DRIFT TERAKHIR FASE N DITUTUP · FASE M DIBUKUKAN DENGAN POC-NYA**
+
+### 1. FASE N — sisa DRIFT terakhir ditutup
+`audit_md_erp_readiness` melaporkan satu DRIFT: notifikasi **`contra_bon_cycle`**
+(pengingat jadwal tukar faktur, `services/contra_bon_reminder.py`) masih
+`recipient_role="all"` — satu-satunya produsen yang belum ikut FASE N. Sekarang
+beralamat lewat `create_addressed(roles=("finance","manager"))` (fan-out per orang,
+dedupe per orang, keputusan pemilik sesi ini: peran finance + manajer, bukan izin).
+Dokumen demo lama ber-"all" dihapus dan job dijalankan ulang → 4 notifikasi per orang
+(finance ×1 + manajer ×3), `recipient_role="all"` = **0 dokumen**. POC FASE N tetap
+**35/35** sesudah perubahan.
+
+### 2. FASE M — fiturnya sudah lahir bertahap (L·T·U·I), sesi ini yang MENGUKUR & MEMBUKUKANNYA
+Rencana §M tidak butuh kode baru — semua butirnya sudah ada — tetapi belum pernah punya
+POC-nya. Ditulis **`backend/test_core_makloon_lini_poc.py`** (M1–M6, **35 PASS / 0 FAIL**,
+nol residu — jejak login/audit/notifikasi dibuang lewat selisih himpunan):
+* **M1** rantai `benang→tenun→celup` via API: `line_code`, `steps[].stage_code` dari
+  master, rantai terputus (output N ≠ input N+1) → 400.
+* **M2** biaya per tahap: `steps[].tariff_actual` terisi, 2 `vendor_bills`
+  makloon_service lahir, WIP 1-1350 kembali NOL.
+* **M3** hasil makloon ber-grade **lewat dokumen inspeksi** (`makloon_output`, FASE I):
+  warna `beda_shade` → baris DITAHAN · petugas gudang melepas → 403 · MANAJER melepas
+  ber-alasan · `grade_after` dokumen == grade roll fisik · SPK ditutup `terima`.
+* **M4** tahap **Screen** (printing) = jasa murni: issue kain → 409, output = kain yang
+  sama (`changes_stage=False`), biaya Rp 750rb **diserap** ke HPP kain cetak
+  (`absorbed_service_value`; output_value = bahan + jasa cetak + screen), WIP nol.
+* **M5** papan per lini: `?line=woven` menyaring, dan `manager.printing@` hanya melihat
+  SPK printing.
+
+### 3. Bukti penutup
+`audit_md_erp_readiness`: **SELESAI=96 · BELUM=0 · DRIFT=0** (pertama kali seluruh
+fakta hijau). POC M **35/35** · POC N **35/35** · data demo kembali persis
+(makloon_orders 5 · inspections 3 · vendor_bills 12 · products 20 · rolls 66).
+
+### 4. Berikutnya
+Rencana eksekusi MD-ERP (§1–§M) **habis**. Pekerjaan berikutnya datang dari backlog
+pemilik/agen (mis. `BUG_BACKLOG.md`, `MASTER_ROADMAP.md`), bukan dari rencana fase.
+
