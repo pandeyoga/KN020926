@@ -32,6 +32,13 @@ tersisa action items minor).
   4. Lebar select Satuan & Grade pada baris Tambah Item PO create: 104px → 130px (kedua grid).
   5. Escape menutup FormModal — sudah tertangani `useEscapeClose` (INV-UI-10), diverifikasi ulang.
 
+- 2026-06 (verifikasi FASE I): FASE I (Inspeksi & QC sebagai dokumen) TERNYATA SUDAH SELESAI
+  di repo (plan.md §STATUS I, 2026-08-24, POC 93/93). Diverifikasi ulang di lingkungan ini:
+  layar SPK Inspeksi & QC (Gudang → Operasi Gudang → tab SPK Inspeksi & QC) render 2 SPK KSC
+  + banner kebijakan; kebijakan default qc.color_mismatch_action=tahan /
+  qc.handfeel_mismatch_action=peringatkan; release-hold oleh warehouse → 403
+  (HOLD_RELEASE_ROLES = admin, manager); seed 3 SPK + 7 complaint_reasons ada.
+
 ## Backlog / Prioritas
 - P2: refactor readability `merged_max` di PATCH approval_rules (catatan review, non-blocking).
 - Roadmap repo (MASTER_ROADMAP.md): FASE I (Inspeksi & QC sebagai dokumen) → N (Notifikasi) → M (Makloon).
