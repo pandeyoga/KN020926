@@ -148,7 +148,7 @@ async def manager_home(period: Optional[str] = None, entity_id: Optional[str] = 
     # 2026-06 — papan antrean mahal kini ADA JUGA di Dasbor Manajer. Sebelum ini hanya
     # beranda pemilik memilikinya, padahal yang menandatangani PO custom & sengketa
     # kontrabon justru manajer: pemilik melihat pekerjaannya, orangnya tidak.
-    waiting_boards = await _waiting_boards(entity_id, HOME_BOARD_KEYS, allowed, actor)
+    waiting_boards = await _waiting_boards(entity_id, MANAGER_BOARD_KEYS, allowed, actor)
     day, days_in_month = _month_progress()
     return {
         "period": period,
@@ -198,6 +198,12 @@ async def approval_backlog(entity_id: Optional[str]) -> Dict[str, Any]:
 #: antar-PT menahan jurnal di DUA buku. Antrean lain cukup diwakili kartu "Paling Lama
 #: Menunggu" — papan untuk semuanya sama saja dengan tidak punya papan.
 HOME_BOARD_KEYS = ("special_order", "contra_bon_dispute", "interco_return")
+
+#: MANAJER (2026-06) — beranda manajer juga memuat papan tahanan QC: pelepasan tahanan
+#: warna/handfeel adalah keputusan yang HANYA manajer boleh ambil (keputusan pemilik #5),
+#: jadi antreannya harus terlihat di meja orang yang memegang kuncinya — bukan hanya di
+#: layar Operasi gudang.
+MANAGER_BOARD_KEYS = HOME_BOARD_KEYS + ("inspection_hold",)
 
 #: SALES (2026-06) — yang MAHAL BILA MENUNGGU di meja penjualan: PO custom (kain sudah
 #: dipesan khusus), SO yang tertahan di ACC (pelanggan sudah dijanjikan tanggal), dan

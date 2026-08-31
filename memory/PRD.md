@@ -39,6 +39,12 @@ tersisa action items minor).
   qc.handfeel_mismatch_action=peringatkan; release-hold oleh warehouse → 403
   (HOLD_RELEASE_ROLES = admin, manager); seed 3 SPK + 7 complaint_reasons ada.
 
+- 2026-06 (Dasbor Tahanan QC): beranda manajer kini memuat kartu KPI "Barang ditahan QC"
+  (klik → layar SPK Inspeksi, testid manager-home-qc-hold-kpi) + papan antrean
+  `inspection_hold` (baris per SPK ber-tahanan). Backend: `MANAGER_BOARD_KEYS =
+  HOME_BOARD_KEYS + ("inspection_hold",)` di home_service.manager_home — definisi antrean
+  tetap satu di approval_backlog_service (INV-HOME-01), Control Tower admin tidak diubah.
+
 ## Backlog / Prioritas
 - P2: refactor readability `merged_max` di PATCH approval_rules (catatan review, non-blocking).
 - Roadmap repo (MASTER_ROADMAP.md): FASE I (Inspeksi & QC sebagai dokumen) → N (Notifikasi) → M (Makloon).

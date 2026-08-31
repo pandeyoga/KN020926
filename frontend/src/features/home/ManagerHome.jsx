@@ -57,6 +57,10 @@ export default function ManagerHome({ selectedEntity = "all", onNavigate }) {
   // keadaan "tidak bisa dibaca" terlihat, bukan hilang (regresi B5).
   const boardsUnreadable = !loading && (!data || !!error);
   const boards = selectWaitingBoards(data, boardsUnreadable);
+  // Tahanan QC — hanya manajer boleh melepas; kartu ringkasnya di baris KPI supaya
+  // tidak terlewat walau papannya jauh di bawah lipatan.
+  const qcHold = (data?.waiting_boards || []).find((b) => b.key === "inspection_hold");
+  const qcHoldCount = qcHold?.count ?? 0;
   const showEntity = !selectedEntity || selectedEntity === "all";
   const ach = Number(target.achievement_pct || 0);
   const prog = Number(target.month_progress_pct || 0);
@@ -117,7 +121,7 @@ export default function ManagerHome({ selectedEntity = "all", onNavigate }) {
               data-testid="manager-home-loading">Memuat dasbor manajer…</p>
           ) : (
             <>
-              <div className="grid grid-cols-2 gap-2 md:grid-cols-5"
+              <div className="grid grid-cols-2 gap-2 md:grid-cols-6"
                 data-testid="manager-home-kpi">
                 <Kpi label="Penjualan tim (bulan ini)" value={formatCurrency(totals.total_sales || 0)} />
                 <Kpi label="Tertagih" value={formatCurrency(totals.total_collected || 0)}
@@ -130,6 +134,12 @@ export default function ManagerHome({ selectedEntity = "all", onNavigate }) {
                   value={boardsUnreadable ? "—" : String(approvals.total ?? 0)}
                   tone={boardsUnreadable ? "#C0392B"
                     : (approvals.total ?? 0) > 0 ? "#B26A00" : "#1B7F4B"} />
+                <Kpi label="Barang ditahan QC"
+                  value={boardsUnreadable ? "—" : String(qcHoldCount)}
+                  tone={boardsUnreadable || qcHoldCount > 0 ? "#C0392B" : "#1B7F4B"}
+                  hint={qcHoldCount > 0 ? "Hanya Anda yang boleh melepas — klik untuk membuka" : ""}
+                  onClick={() => go("inspections")}
+                  testId="manager-home-qc-hold-kpi" />
               </div>
 
               {/* Target tim vs kemajuan bulan */}
@@ -435,13 +445,18 @@ export default function ManagerHome({ selectedEntity = "all", onNavigate }) {
   );
 }
 
-function Kpi({ label, value, tone = "#1C1C1E" }) {
+function Kpi({ label, value, tone = "#1C1C1E", hint = "", onClick = null, testId = "" }) {
+  const Tag = onClick ? "button" : "div";
   return (
-    <div className="rounded-lg border border-[#EFF0F2] bg-[#FAFBFC] p-2">
+    <Tag {...(onClick ? { type: "button", onClick } : {})}
+      {...(testId ? { "data-testid": testId } : {})}
+      className={`rounded-lg border border-[#EFF0F2] bg-[#FAFBFC] p-2 text-left ${
+        onClick ? "cursor-pointer transition hover:border-[#C7C9CF] hover:bg-white" : ""}`}>
       <p className="text-[9.5px] font-bold uppercase text-[#8E8E93]">{label}</p>
       <p className="text-[13px] font-bold leading-tight tabular-nums" style={{ color: tone }}>
         {value}
       </p>
-    </div>
+      {hint && <p className="mt-0.5 text-[9px] leading-tight text-[#C0392B]">{hint}</p>}
+    </Tag>
   );
 }
