@@ -129,9 +129,35 @@ def normalize_fe_path(raw, api_is_bare):
     p = p.replace("${BASE}", "/api")
     # 3) sisa ${...} = path param → wildcard
     p = re.sub(r"\$\{[^}]+\}", "{p}", p)
+    # 3b) template TERPOTONG oleh regex (mis. ternary ber-kutip:
+    #     `${decision === "approve" ? ...` — kutip di dalam ${} menghentikan
+    #     capture sebelum `}` penutup). Sisa `${...` tanpa penutup = segmen
+    #     dinamis → perlakukan sebagai wildcard, sama seperti butir 3.
+    p = re.sub(r"\$\{.*$", "{p}", p)
     # 4) bersihkan
     p = re.sub(r"/{2,}", "/", p).rstrip("/") or "/"
     return p
+
+
+# Panggilan yang path-nya SEPENUHNYA dinamis (dikirim server, tak ada segmen
+# statis untuk dicocokkan). Kunci = (src relatif, raw persis). WAJIB ber-alasan —
+# pola yang sama dengan DOOR_EXEMPT di verify_approval_queues.py.
+FULLY_DYNAMIC_EXEMPT = {
+    ("components/WaitingQueueBoard.jsx", "${API}${a.path}"):
+        "Aksi papan antrean: path lengkap datang dari server "
+        "(/approvals/queue-board → actions[].path); kebenarannya dijaga "
+        "verify_approval_queues.py, bukan pencocokan statis.",
+    ("components/WaitingBoardsStrip.jsx", "${API}${endpoint}"):
+        "Komponen generik: endpoint dipasok lewat prop oleh pemanggil "
+        "(papan-papan tunggu di beranda); path konkretnya diperiksa di "
+        "berkas pemanggil masing-masing.",
+    ("features/approvals/ApprovalDecisionModal.jsx", "${API}${detailUrl(item)}"):
+        "URL detail dibangun helper detailUrl() per jenis dokumen; setiap "
+        "cabangnya endpoint GET yang juga dipanggil layar detail masing-masing.",
+    ("features/documents/ProcessTimeline.jsx", "${API}${link.doc_url}"):
+        "Tautan cetak: doc_url datang dari server (/documents/links) — "
+        "bukan path yang ditulis frontend.",
+}
 
 
 def fe_calls():
@@ -162,6 +188,8 @@ def check_fe_routes():
     seen = set()
     for method, fe_path, raw, src in calls:
         if fe_path in seen:
+            continue
+        if (str(src), raw) in FULLY_DYNAMIC_EXEMPT:
             continue
         test = fe_path.replace("{p}", "X")
         # Cek EKSISTENSI PATH (lintas-method): kegagalan nyata = path typo → 404.

@@ -60,6 +60,15 @@ tersisa action items minor).
   role-home per peran hidup, akses sales bersih dari HPP/vendor bill. Regresi
   iteration_274: backend 100% · frontend 100% · nol residu. Header MASTER_ROADMAP dibetulkan.
 
+- 2026-06 (audit vs panduan training MD/Admin Sales): 2 gelombang testing agent
+  (iteration_275 alur A/B/C/E/F, iteration_276 alur D/G/H/I/J/K/L + data demo bab 33).
+  Mayoritas SESUAI-DOKUMEN; deviasi DITAMPUNG (belum diperbaiki, sesuai permintaan) di
+  `TEMUAN_AUDIT_TRAINING.md`: 3 KRITIS (T1 gerbang confirm SO mati — bisa lompati
+  verifikasi & ACC manajer; T2 antrean PIN jalan buntu utk sales_admin; T3 isolasi
+  entitas bocor di detail/PDF inspeksi), 2 TINGGI (T4 putuskan-ulang pemenuhan 400,
+  T5 revisi baris PO yg sudah diterima), 4 SEDANG, 2 MINOR, 7 temuan data-demo/dokumen.
+  Seed demo di-reset via scripts/seed_reset.sh setelah audit.
+
 ## Backlog / Prioritas
 - ~~P2: refactor readability `merged_max` di PATCH approval_rules~~ — SELESAI 2026-06
   (ternary bersarang → dua baris jelas; POC approval coverage tetap 41/41, PATCH menolak

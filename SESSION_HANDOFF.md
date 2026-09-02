@@ -19,6 +19,22 @@
 > keduanya 35/35 saat diulang BERURUTAN). Ini kelas jebakan yang sama dengan catatan
 > sesi ke-5: "jangan jalankan verify/gate bersamaan dengan POC".
 >
+> **AUDIT vs PANDUAN TRAINING (2026-06, sesi lanjutan ke-7 lanjutan):** pemilik
+> mengunggah `Panduan_Training_ERP_KainNusantara_MD_AdminSales_1.pdf` dan meminta
+> SEMUA flow diuji, temuan DITAMPUNG (belum diperbaiki). Dua gelombang testing agent:
+> `iteration_275` (alur A/B/C/E/F Admin Sales) & `iteration_276` (alur D/G/H/I/J/K/L
+> MD + data demo bab 33) — total 94 case backend + audit UI. Hasil: mayoritas
+> SESUAI-DOKUMEN; deviasi lengkap di **`TEMUAN_AUDIT_TRAINING.md`** (3 KRITIS:
+> T1 gerbang verifikasi confirm SO default MATI → SO bisa lompati verifikasi & ACC
+> manajer; T2 antrean PIN jalan buntu untuk sales_admin (internal_requests.py tanpa
+> peran itu); T3 isolasi entitas bocor di GET detail/PDF inspeksi utk akun
+> multi-entitas — plus 2 TINGGI, 4 SEDANG, 2 MINOR, 7 temuan data-demo/dokumen).
+> Seed demo dipulihkan via `scripts/seed_reset.sh`; gate kontrak FE↔BE sempat merah
+> karena 4 panggilan ber-path dinamis (false positive statis) → checker kini punya
+> `FULLY_DYNAMIC_EXEMPT` ber-alasan + normalisasi template terpotong; gate HIJAU.
+> Tes audit tersimpan: `backend/tests/test_iter275_g1_admin_sales_audit.py` &
+> `test_iter276_g2_md_audit.py` (jalankan dgn `-p no:randomly -n 0`, reset seed dulu).
+
 > **SUDAH DIKERJAKAN DI SESI INI JUGA (lanjutan):** (1) P2 `merged_max` PATCH
 > approval_rules — refactor readable, perilaku identik, POC approval **41/41**;
 > (2) Bug #7 badge tab "Menunggu" Persetujuan Harga — rata tengah (center_delta
